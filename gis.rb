@@ -12,21 +12,20 @@ class Track
   end
 
   def get_track_json()
-    j = '{ "type": "Feature", '
+    text = '{ "type": "Feature", '
     if @name != nil
-      j+= '"properties": {"title": "' + @name + '"},'
-      # j += '"title": "' + @name + '"'
-      # j += '},'
+      text+= '"properties": {"title": "' + @name + '"},'
+
     end
-    j += '"geometry": {'
-    j += '"type": "MultiLineString",'
-    j +='"coordinates": ['
+    text += '"geometry": {'
+    text += '"type": "MultiLineString",'
+    text +='"coordinates": ['
     # Loop through all the segment objects
     @segments.each_with_index do |s, index|
       if index > 0
-        j += ","
+        text += ","
       end
-      j += '['
+      text += '['
       # Loop through all the coordinates in the segment
       tsj = ''
       s.coordinates.each do |c|
@@ -41,10 +40,10 @@ class Track
         end
         tsj += ']'
       end
-      j+=tsj
-      j+=']'
+      text+=tsj
+      text+=']'
     end
-    j + ']}}'
+    text + ']}}'
   end
 end
 class TrackSegment
