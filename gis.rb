@@ -15,12 +15,8 @@ class Track
     text = '{ "type": "Feature", '
     if @name != nil
       text+= '"properties": {"title": "' + @name + '"},'
-
     end
-    text += '"geometry": {'
-    text += '"type": "MultiLineString",'
-    text +='"coordinates": ['
-    # Loop through all the segment objects
+    text += '"geometry": {"type": "MultiLineString","coordinates": ['
     @segments.each_with_index do |s, index|
       if index > 0
         text += ","
@@ -46,6 +42,7 @@ class Track
     text + ']}}'
   end
 end
+
 class TrackSegment
   attr_reader :coordinates
   def initialize(coordinates)
@@ -54,7 +51,6 @@ class TrackSegment
 end
 
 class Point
-
   attr_reader :lat, :lon, :ele
 
   def initialize(lon, lat, ele=nil)
@@ -65,9 +61,6 @@ class Point
 end
 
 class Waypoint
-
-
-
 attr_reader :lat, :lon, :ele, :name, :type
 
   def initialize(lon, lat, ele=nil, name=nil, type=nil)
@@ -110,11 +103,12 @@ def initialize(name, things)
   @name = name
   @features = things
 end
-  def add_feature(f)
-    @features.append(t)
-  end
 
-  def to_geojson(indent=0)
+def add_feature(f)
+  @features.append(t)
+end
+
+def to_geojson(indent=0)
     # Write stuff
     s = '{"type": "FeatureCollection","features": ['
     @features.each_with_index do |f,i|
@@ -134,24 +128,12 @@ end
 def main()
   w = Waypoint.new(-121.5, 45.5, 30, "home", "flag")
   w2 = Waypoint.new(-121.5, 45.6, nil, "store", "dot")
-  ts1 = [
-  Point.new(-122, 45),
-  Point.new(-122, 46),
-  Point.new(-121, 46),
-  ]
-
+  ts1 = [Point.new(-122, 45), Point.new(-122, 46), Point.new(-121, 46), ]
   ts2 = [ Point.new(-121, 45), Point.new(-121, 46), ]
-
-  ts3 = [
-    Point.new(-121, 45.5),
-    Point.new(-122, 45.5),
-  ]
-
+  ts3 = [Point.new(-121, 45.5), Point.new(-122, 45.5),]
   t = Track.new([ts1, ts2], "track 1")
   t2 = Track.new([ts3], "track 2")
-
   world = World.new("My Data", [w, w2, t, t2])
-
   puts world.to_geojson()
 end
 
