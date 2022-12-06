@@ -29,8 +29,7 @@ class Track
           tsj += ','
         end
         # Add the coordinate
-        tsj += '['
-        tsj += "#{c.lon},#{c.lat}"
+        tsj += "[#{c.lon},#{c.lat}"
         if c.ele != nil
           tsj += ",#{c.ele}"
         end
@@ -72,29 +71,29 @@ attr_reader :lat, :lon, :ele, :name, :type
   end
 
   def get_waypoint_json(indent=0)
-    j = '{"type": "Feature",'
+    text = '{"type": "Feature",'
     # if name is not nil or type is not nil
-    j += '"geometry": {"type": "Point","coordinates": '
-    j += "[#{@lon},#{@lat}"
+    text += '"geometry": {"type": "Point","coordinates": '
+    text += "[#{@lon},#{@lat}"
     if ele != nil
-      j += ",#{@ele}"
+      text += ",#{@ele}"
     end
-    j += ']},'
+    text += ']},'
     if name != nil or type != nil
-      j += '"properties": {'
+      text += '"properties": {'
       if name != nil
-        j += '"title": "' + @name + '"'
+        text += '"title": "' + @name + '"'
       end
       if type != nil  # if type is not nil
         if name != nil
-          j += ','
+          text += ','
         end
-        j += '"icon": "' + @type + '"'  # type is the icon
+        text += '"icon": "' + @type + '"'  # type is the icon
       end
-      j += '}'
+      text += '}'
     end
-    j += "}"
-    return j
+    text += "}"
+    return text
   end
 end
 
@@ -136,7 +135,6 @@ def main()
   world = World.new("My Data", [w, w2, t, t2])
   puts world.to_geojson()
 end
-
 if File.identical?(__FILE__, $0)
   main()
 end
