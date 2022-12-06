@@ -12,12 +12,11 @@ class Track
   end
 
   def get_track_json()
-    j = '{'
-    j += '"type": "Feature", '
+    j = '{ "type": "Feature", '
     if @name != nil
-      j+= '"properties": {'
-      j += '"title": "' + @name + '"'
-      j += '},'
+      j+= '"properties": {"title": "' + @name + '"},'
+      # j += '"title": "' + @name + '"'
+      # j += '},'
     end
     j += '"geometry": {'
     j += '"type": "MultiLineString",'
