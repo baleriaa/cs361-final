@@ -101,7 +101,7 @@ feature4.add_property("title", "track 2")
 feature4.add_geometry("geometry", multilinestring2)
 
 featurecollection.add_feature(feature1)
-featurecollection.add_feature(feature2)
-featurecollection.add_feature(feature3)
-featurecollection.add_feature(feature4)
+# featurecollection.add_feature(feature2)
+# featurecollection.add_feature(feature3)
+# featurecollection.add_feature(feature4)
 puts featurecollection.to_s
