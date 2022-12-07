@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'json'
 
 class Track
   def initialize(segments, name=nil)
