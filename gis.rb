@@ -4,8 +4,8 @@ class Track
   def initialize(segments, name=nil)
     @name = name
     segment_objects = []
-    segments.each do |s|
-      segment_objects.append(TrackSegment.new(s))
+    segments.each do |segment|
+      segment_objects.append(TrackSegment.new(segment))
     end
     # set segments to segment_objects
     @segments = segment_objects
@@ -17,14 +17,14 @@ class Track
       text+= '"properties": {"title": "' + @name + '"},'
     end
     text += '"geometry": {"type": "MultiLineString","coordinates": ['
-    @segments.each_with_index do |s, index|
+    @segments.each_with_index do |segment, index|
       if index > 0
         text += ","
       end
       text += '['
       # Loop through all the coordinates in the segment
       tsj = ''
-      s.coordinates.each do |c|
+      segment.coordinates.each do |c|
         if tsj != ''
           tsj += ','
         end
@@ -138,4 +138,3 @@ end
 if File.identical?(__FILE__, $0)
   main()
 end
-
