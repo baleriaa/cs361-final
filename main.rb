@@ -13,7 +13,7 @@ class FeatureCollection
   end
 
   def to_s
-    %Q[{"type":"#{@type}", "features": #{@features}]
+    %Q[{"type":#{JSON.generate(@type)}, "features": #{JSON.generate(@features)}]
   end
 end
 
@@ -35,7 +35,7 @@ class Feature
   end
 
   def to_s
-    %Q[{"type":"#{@type}", "properties": #{@properties}, "geometry": #{@geometry}}]
+    %Q[{"type":#{JSON.generate(@type)}, "properties": #{JSON.generate(@properties)}, #{JSON.generate(@geometry)}}]
   end
 end
 
@@ -48,7 +48,7 @@ class Point
   end
 
   def to_s
-    %Q[{"type":"#{@type}", "coordinates":#{@coordinates}}]
+    %Q[{"type":#{JSON.generate(@type)}, "coordinates":#{JSON.generate(@coordinates)}}]
   end
 end
 
@@ -65,7 +65,7 @@ class MultiLineString
   end
 
   def to_s
-    %Q[{"type":"#{@type}", "coordinates": #{@coordinates}}]
+    %Q[{"type":#{JSON.generate(@type)}, "coordinates": #{JSON.generate(@coordinates)}}]
   end
 
 end
@@ -92,4 +92,6 @@ feature4.add_property("title", "track 2")
 feature4.add_geometry("geometry", multilinestring2)
 featurecollection.add_feature(feature1)
 
-puts JSON.generate(feature1)
+puts feature1
+puts multilinestring1
+puts featurecollection
