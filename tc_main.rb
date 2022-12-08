@@ -1,6 +1,6 @@
 require_relative 'main.rb'
 require 'test/unit'
-# require 'json'
+require 'json'
 
 class TestMain < Test::Unit::TestCase
 
@@ -24,10 +24,14 @@ class TestMain < Test::Unit::TestCase
     feature = Feature.new
     feature.add_property("title", "home")
     feature.add_property("icon", "flag")
-    feature.add_geometry("geometry",Point.new(-122, 45, 30))
-    expected = '{"type":"Feature", "properties":{"title":"home", "icon":"flag"}, "geometry":{"type":"Point", "coordinates":[-122, 45, 30]}}'
-    result = feature.to_s
+    feature.add_geometry("geometry", Point.new(-122, 45, 30))
+    expected = JSON.generate('{"type":"Feature", "properties":{"title":"home", "icon":"flag"}, "geometry":{"type":"Point", "coordinates":[-122, 45, 30]}}')
+    result = JSON.generate(feature.to_s)
     assert_equal(expected, result)
   end
+
+  # def test_feature_collection
+
+  # end
 
 end

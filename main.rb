@@ -1,5 +1,4 @@
 require 'json'
-require 'pp'
 
 class FeatureCollection
   attr_accessor :type, :features
@@ -45,7 +44,7 @@ class Point
 
   def initialize(latitude, longitude, elevation=nil)
     @type = "Point"
-    @coordinates = [ latitude, longitude, elevation ]
+    @coordinates = [latitude, longitude, elevation]
   end
 
   def to_s
@@ -76,8 +75,6 @@ feature1 = Feature.new
 feature2 = Feature.new
 feature3 = Feature.new
 feature4 = Feature.new
-# point1 = Point.new(-121.5, 45.5, 30)
-# point2 = Point.new(-121.5, 45.6)
 multilinestring1 = MultiLineString.new
 multilinestring1.add_coordinates([[ -122, 45 ], [ -122, 46 ], [ -121, 46 ]])
 multilinestring1.add_coordinates([[ -121, 45 ], [ -121, 46 ]])
@@ -85,7 +82,7 @@ multilinestring2 = MultiLineString.new
 multilinestring2.add_coordinates([[ -121, 45.5 ], [ -122, 45.5 ]])
 feature1.add_property("title", "home")
 feature1.add_property("icon", "flag")
-feature1.add_geometry("geometry", Point.new(-121.5, 45.5, 30))
+feature1.add_geometry("geometry", Point.new(-122, 45, 30))
 feature2.add_property("title", "store")
 feature2.add_property("icon", "dot")
 feature2.add_geometry("geometry", Point.new(-121.5, 45.6))
@@ -95,4 +92,4 @@ feature4.add_property("title", "track 2")
 feature4.add_geometry("geometry", multilinestring2)
 featurecollection.add_feature(feature1)
 
-puts feature1.to_s
+puts JSON.generate(feature1)
