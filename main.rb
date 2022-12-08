@@ -1,7 +1,9 @@
 require 'json'
+require 'pp'
 
 class FeatureCollection
   attr_accessor :type, :features
+  
   def initialize
     @type = "FeatureCollection"
     @features = []
@@ -12,18 +14,17 @@ class FeatureCollection
   end
 
   def to_s
-    %Q["type":"#{@type}", "features": #{@features}]
+    %Q[{"type":"#{@type}", "features": #{@features}]
   end
 end
 
-# The features are objects with three fields; type, properties, and geometry.
 class Feature
-  attr_accessor :type, :properties, :geometry, :features
+  attr_accessor :type, :properties, :geometry
 
   def initialize()
     @type = "Feature"
-    @properties = {} # title, icon
-    @geometry = {} # type, coordinates
+    @properties = {} 
+    @geometry = {}
   end
 
   def add_property(key, value)
@@ -35,7 +36,7 @@ class Feature
   end
 
   def to_s
-    %Q["type":"#{@type}", "properties": #{@properties}, "geometry": #{@geometry}]
+    %Q[{"type":"#{@type}", "properties": #{@properties}, "geometry": #{@geometry}}]
   end
 end
 
@@ -44,11 +45,11 @@ class Point
 
   def initialize(latitude, longitude, elevation=nil)
     @type = "Point"
-    @coordinates = [latitude, longitude, elevation]
+    @coordinates = [ latitude, longitude, elevation ]
   end
 
   def to_s
-    %Q["type":"#{@type}", "coordinates": #{@coordinates}]
+    %Q[{"type":"#{@type}", "coordinates":#{@coordinates}}]
   end
 end
 
@@ -65,43 +66,33 @@ class MultiLineString
   end
 
   def to_s
-    %Q["type":"#{@type}", "coordinates": #{@coordinates}]
+    %Q[{"type":"#{@type}", "coordinates": #{@coordinates}}]
   end
 
 end
-
 
 featurecollection = FeatureCollection.new
 feature1 = Feature.new
 feature2 = Feature.new
 feature3 = Feature.new
 feature4 = Feature.new
-point1 = Point.new(-121.5, 45.5, 30)
-point2 = Point.new(-121.5, 45.6)
+# point1 = Point.new(-121.5, 45.5, 30)
+# point2 = Point.new(-121.5, 45.6)
 multilinestring1 = MultiLineString.new
 multilinestring1.add_coordinates([[ -122, 45 ], [ -122, 46 ], [ -121, 46 ]])
 multilinestring1.add_coordinates([[ -121, 45 ], [ -121, 46 ]])
-
 multilinestring2 = MultiLineString.new
 multilinestring2.add_coordinates([[ -121, 45.5 ], [ -122, 45.5 ]])
-
-
 feature1.add_property("title", "home")
 feature1.add_property("icon", "flag")
-feature1.add_geometry("geometry", point1)
-
+feature1.add_geometry("geometry", Point.new(-121.5, 45.5, 30))
 feature2.add_property("title", "store")
 feature2.add_property("icon", "dot")
-feature2.add_geometry("geometry", point2)
-
+feature2.add_geometry("geometry", Point.new(-121.5, 45.6))
 feature3.add_property("title", "track 1")
 feature3.add_geometry("geometry", multilinestring1)
-
 feature4.add_property("title", "track 2")
 feature4.add_geometry("geometry", multilinestring2)
-
 featurecollection.add_feature(feature1)
-# featurecollection.add_feature(feature2)
-# featurecollection.add_feature(feature3)
-# featurecollection.add_feature(feature4)
-puts featurecollection.to_s
+
+puts feature1.to_s

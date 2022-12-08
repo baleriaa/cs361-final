@@ -48,6 +48,10 @@ class TrackSegment
   def initialize(coordinates)
     @coordinates = coordinates
   end
+
+  def to_s
+    
+  end
 end
 
 class Point
@@ -60,7 +64,7 @@ class Point
   end
 end
 
-class Waypoint
+class Waypoint < Point
 attr_reader :lat, :lon, :ele, :name, :type
 
   def initialize(lon, lat, ele=nil, name=nil, type=nil)

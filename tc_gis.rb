@@ -4,8 +4,8 @@ require 'test/unit'
 
 class TestGis < Test::Unit::TestCase
 
-  def test_waypoints
-    w = Waypoint.new(-121.5, 45.5, 30, "home", "flag")
+  def feature_collection
+    f = FeatureCollection.new
     expected = JSON.parse('{"type": "Feature","properties": {"title": "home","icon": "flag"},"geometry": {"type": "Point","coordinates": [-121.5,45.5,30]}}')
     result = JSON.parse(w.get_waypoint_json)
     assert_equal(result, expected)
