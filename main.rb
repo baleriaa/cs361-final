@@ -15,6 +15,7 @@ class FeatureCollection
   def to_s
     %Q[{"type":#{JSON.generate(@type)}, "features": #{JSON.generate(@features)}]
   end
+
 end
 
 class Feature
@@ -54,6 +55,7 @@ class Point
   def to_s
     %Q[{"type":#{JSON.generate(@type)}, "coordinates":#{JSON.generate(@coordinates)}}]
   end
+
 end
 
 class MultiLineString 
@@ -99,18 +101,3 @@ featurecollection.add_feature(feature1)
 featurecollection.add_feature(feature2)
 featurecollection.add_feature(feature3)
 featurecollection.add_feature(feature4)
-
-# puts feature1
-# puts multilinestring1
-# puts JSON.generate(featurecollection)
-puts point1
-
-# puts JSON.generate('{"type":"FeatureCollection","features":[{"type": "Feature","properties":
-#   {"title": "home","icon": "flag"},"geometry":{"type":"Point","coordinates
-#   ":[-121.5,45.5,30]}},{"type": "Feature","properties": {"title": "store",
-#   "icon": "dot"},"geometry":{"type":"Point","coordinates":[-121.5,45.6]}},
-#   {"type": "Feature","properties": {"title": "track 1"},"geometry": {"type
-#   ": "MultiLineString","coordinates": [[[45,-122],[46,-122],[46,-121]],[[4
-#   5,-121],[46,-121]]]}},{"type": "Feature","properties": {"title": "track 
-#   2"},"geometry": {"type": "MultiLineString","coordinates": [[[45.5,-121],
-#   [45.5,-122]]]}}]}')
