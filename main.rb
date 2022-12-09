@@ -35,14 +35,14 @@ class Feature
   end
 
   def to_s
-    %Q[{"type":#{JSON.generate(@type)}, "properties": #{JSON.generate(@properties)}, #{JSON.generate(@geometry)}}]
+    %Q[{"type": #{JSON.generate(@type)},"properties": #{JSON.generate(@properties)},#{JSON.generate(@geometry)}}]
   end
 end
 
 class Point
   attr_accessor :latitude, :longitude, :elevation
 
-  def initialize(latitude, longitude, elevation=nil)
+  def initialize(latitude, longitude, elevation=)
     @type = "Point"
     @coordinates = [latitude, longitude, elevation]
   end
@@ -65,7 +65,7 @@ class MultiLineString
   end
 
   def to_s
-    %Q[{"type":#{JSON.generate(@type)}, "coordinates": #{JSON.generate(@coordinates)}}]
+    %Q[{"type": #{JSON.generate(@type)},"coordinates": #{JSON.generate(@coordinates)}}]
   end
 
 end
@@ -91,7 +91,21 @@ feature3.add_geometry("geometry", multilinestring1)
 feature4.add_property("title", "track 2")
 feature4.add_geometry("geometry", multilinestring2)
 featurecollection.add_feature(feature1)
+featurecollection.add_feature(feature2)
+featurecollection.add_feature(feature3)
+featurecollection.add_feature(feature4)
 
-puts feature1
-puts multilinestring1
-puts featurecollection
+# puts feature1
+# puts multilinestring1
+puts JSON.generate(feature1.to_json)
+puts JSON.parse(multilinestring1.to_json)
+
+# puts JSON.generate('{"type":"FeatureCollection","features":[{"type": "Feature","properties":
+#   {"title": "home","icon": "flag"},"geometry":{"type":"Point","coordinates
+#   ":[-121.5,45.5,30]}},{"type": "Feature","properties": {"title": "store",
+#   "icon": "dot"},"geometry":{"type":"Point","coordinates":[-121.5,45.6]}},
+#   {"type": "Feature","properties": {"title": "track 1"},"geometry": {"type
+#   ": "MultiLineString","coordinates": [[[45,-122],[46,-122],[46,-121]],[[4
+#   5,-121],[46,-121]]]}},{"type": "Feature","properties": {"title": "track 
+#   2"},"geometry": {"type": "MultiLineString","coordinates": [[[45.5,-121],
+#   [45.5,-122]]]}}]}')
